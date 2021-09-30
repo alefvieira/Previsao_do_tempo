@@ -1,0 +1,87 @@
+*{
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+html,body{
+    height: 100%; 
+}
+main.container{
+    /* border: solid 1px black; */
+    min-height: calc(100% - 200px - 117px);
+    margin: 0 5%;
+    padding: 70px 0;
+}
+main h2{
+    padding: 15px 0;
+}
+main h3{
+    padding: 10px 0;
+}
+main p{
+    padding: 5px 0;
+}
+main p.last_p{
+    padding-bottom: 15px;
+}
+
+
+footer, header{
+    text-align: center;
+}
+header{
+    background-color: rgb(33, 52, 105);
+}
+header h1{
+    color: white;
+    padding: 30px 0;;
+}
+footer{
+    width: 100%;
+    height: 200px;
+    font-weight: 300;
+    padding: 15px;
+
+
+}
+.container{
+    padding: 10px 15% ;
+
+}
+footer.container{
+    color: white;
+    background: black;
+    opacity: 0.8;
+    padding: 45px 0;
+    border-top: solid 5px rgb(119, 154, 216);
+}
+
+.posicao_div{
+    width: 25%;
+    display: inline-block;
+    margin-right: -4px;
+    max-width: 500px;
+    border-top: solid 5px black;
+    border-bottom: solid 3px black;
+    border-radius: 30px;
+    padding-left: 5px;
+}
+
+@media screen and (max-width: 1280px ) {
+
+    .posicao_div{
+        width: 50%;
+    }
+
+}
+@media screen and (max-width: 700px ){
+    .posicao_div{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 540px ){
+    .posicao_div{
+        width: 100%;
+    }
+}

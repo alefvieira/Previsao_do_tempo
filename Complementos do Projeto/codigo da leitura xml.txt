@@ -1,0 +1,53 @@
+!pip install xmltodict
+import pandas as pd 
+import numpy as np
+import xmltodict
+from urllib.request import urlopen
+
+file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
+data = file.read()
+file.close()
+
+data = xmltodict.parse(data)
+data['capitais']['metar'][0].keys()
+tabela = pd.DataFrame(data['capitais']['metar'])
+
+tabela.loc[(tabela.codigo == 'SBRJ'),['codigo'] ] = 'Rio de Janeiro'
+tabela.loc[(tabela.codigo == 'SBSP'),['codigo'] ] = 'São Paulo'
+tabela.loc[(tabela.codigo == 'SBVT'),['codigo'] ] = 'Vitoria - ES'
+tabela.loc[(tabela.codigo == 'SBCF'),['codigo'] ] = 'Belo Horizonte - MG'
+tabela.loc[(tabela.tempo_desc == 'PredomÃ­nio de Sol'),['tempo_desc']] = 'Predomínio de Sol'
+tabela.loc[(tabela.tempo_desc == 'Chuvas periÃ³dicas'),['tempo_desc'] ] = 'Chuvas Periódicas'
+
+tabela.loc[[2,20,23,25], ['codigo', 'atualizacao', 'temperatura', 'umidade']]
+
+
+saida = tabela.loc[[2,20,23,25], ['codigo', 'atualizacao', 'temperatura', 'umidade']].to_html()
+saida
+
+with open("saida.html", "w") as text_file:
+    text_file.write(saida)
+
+cidades = {
+    'SBRJ':'Rio de Janeiro',
+    'SBSP':'São Paulo',
+    'SBVT':'Vitória',
+    'SBCF':'Belo Horizonte'}
+
+for i in range(res2):
+    sql_valores = "SELECT * FROM valores WHERE "
+    pagina.write(f"""
+    <div class="posicao_div">
+        <h2>Capital: {}</h2>
+        <h3>Código: {}</h3>
+        <p>Atualização: {}</p>
+        <p>Pressão: {}</p>
+        <p>Temperatura: {}</p>
+        <p>Tempo: {}</p>
+        <p>Descrição do Tempo: {}</p>
+        <p>umidade: {}</p>
+        <p>vento_dir: {}</p>
+        <p>vento_int: {}</p>
+        <p>Intensidade: {}</p>
+    </div>
+    """)

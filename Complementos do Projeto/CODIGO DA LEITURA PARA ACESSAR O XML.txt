@@ -1,0 +1,42 @@
+!pip install xmltodict
+import pandas as pd
+import numpy as np
+import xmltodict
+from urllib.request import urlopen
+file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
+data = file.read()
+file.close()
+data = xmltodict.parse(data)
+df = pd.DataFrame({
+    'data' : [data]
+    })
+df.loc[1:3]
+
+
+data['capitais']['metar'][0].keys()
+
+pd.DataFrame(data['capitais']['metar'])
+
+
+dfclima = pd.DataFrame(data['capitais']['metar'])dfclima.head()
+
+capitais_  = {​​​​'SBRJ':'Rio de Janeiro',
+
+              'SBSP':'São Paulo',
+
+              'SBVT': 'Vitória',
+
+              'SBCF':'Belo Horizonte' }​​​​
+
+
+
+
+#for in dfclima
+capitais_.keys()
+for i in dfclima.values:
+if i[0] in capitais_.keys():
+print(i)
+print(capitais_[i[0]])
+capitais_['SBVT']
+
+https://colab.research.google.com/drive/1CkiQ2Lb4CORKrD4r6BA89Qu6-nldyqgf?usp=sharing#scrollTo=TQ75sMgzN89d
