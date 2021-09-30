@@ -2,7 +2,7 @@ import Conexao_BD as cBD
 import APP_Previsao_Tempo as AppPT
 
 
-pagina=open("index.html","w")
+pagina=open("index.html","w", encoding="UTF-8")
 pagina.write("""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
