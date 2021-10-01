@@ -38,12 +38,13 @@ def consultar(conexao,sql):
         resultado = c.fetchall()
         conexao.commit()
         return resultado
+
     except Error as ex:
         print(ex)
 
 def Criartabela():
     # CRIANDO A TABELA DAS CAPITAIS
-    sql = "CREATE TABLE IF NOT EXISTS capitais(codigo text primary key, nome text )"
+    sql = "CREATE TABLE IF NOT EXISTS capitais(codigo text primary key, capital text, uf text, regiao text)"
     query(Conexao_BD.vcon, sql)
     
     # CRIANDO TABELAS COM OS VALORES DE CADA CAPITAL
@@ -51,7 +52,35 @@ def Criartabela():
     query(Conexao_BD.vcon, sql)
 
 def InsertCapitais():
-    sql = "INSERT INTO capitais(codigo, nome) VALUES ('SBRJ', 'Rio de Janeiro'), ('SBSP', 'São Paulo'),('SBVT', 'Vitória'), ('SBCF', 'Belo Horizonte')"
+    # sql = "INSERT INTO capitais(codigo, nome) VALUES ('SBRJ', 'Rio de Janeiro'), ('SBSP', 'São Paulo'),('SBVT', 'Vitória'), ('SBCF', 'Belo Horizonte')"
+    sql = """INSERT INTO capitais(codigo, capital, uf, regiao) VALUES 
+    ('SBAR',	'Aracaju'		,'SE','Nordeste'),
+    ('SBBE',	'Belém'			,'PA','Norte'),
+    ('SBCF',	'Belo Horizonte','MG','Sudeste'),
+    ('SBBV',	'Boa Vista'		,'RR','Norte'),
+    ('SBBR',	'Brasília'		,'DF','Centro-Oeste'),
+    ('SBCG',	'Campo Grande'	,'MS','Centro-Oeste'),
+    ('SBCY',	'Cuiabá'		,'MT','Centro-Oeste'),
+    ('SBCT',	'Curitiba'		,'PR','Sul'),
+    ('SBFL',	'Teresina'		,'SC','Sul'),
+    ('SBFZ',	'Fortaleza'		,'CE','Nordeste'),
+    ('SBGO',	'Goiânia'		,'GO','Centro-Oeste'),
+    ('SBJP',	'João Pessoa'	,'PB','Nordeste'),
+    ('SBMQ',	'Macapá'		,'AP','Norte'),
+    ('SBMO',	'Maceió'		,'AL','Nordeste'),
+    ('SBMN',	'Manaus'		,'AM','Norte'),
+    ('SBNT',	'Natal'			,'RN','Nordeste'),
+    ('SBPA',	'Porto Alegre'	,'RS','Sul'),
+    ('SBPV',	'Porto Velho'  	,'RO','Norte'),
+    ('SBRF',	'Recife'  		,'PE','Nordeste'),
+    ('SBRB',	'Rio Branco'	,'AC','Norte'),
+    ('SBRJ',	'Rio de Janeiro','RJ','Sudeste'),
+    ('SBSV',	'Salvador'		,'BA','Nordeste'),
+    ('SBSL',	'São Luís'		,'MA','Nordeste'),
+    ('SBSP',	'São Paulo'		,'SP','Sudeste'),
+    ('SBTE',	'Teresina'    	,'PI','Nordeste'),
+    ('SBVT',	'Vitória'		,'ES','Sudeste')"""
+    
     query(Conexao_BD.vcon, sql)
 
 def InsertValores(allcod):
@@ -60,16 +89,37 @@ def InsertValores(allcod):
     query(Conexao_BD.vcon, sql)
     return True
 
-def valoresSuldeste():
-    for i in range(0,26):
+
+def Dados_Capitais():
+     # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
+    sql_s = "SELECT codigo FROM capitais"
+    res = consultar(Conexao_BD.vcon,sql_s)
+
+
+    # FAZ A CONTAGEM DE METAS PARA CRIAR O LOOP DE REPETICAO
+    for i in range(0,len(data['capitais']['metar'])):
+        
+        # VAI PEGAR TODOS OS VALORES DENTRO DAS TAG DO XML
         allcod = data['capitais']['metar'][i]
-        if allcod['codigo'] in cidades:
-            # print(cidades[allcod['codigo']])
+
+        # PEGANDO OS VALORES DA XML E COMPARANDO SE EXISTE A SUA CAPITAL REGISTRADA NO BD
+        # CONVERTENDO O VALOR DA TAG XML E PASSANDO PARA TUPLE PARA COMPRAR COM O VALOR NO BANCO DE DADOS
+        tupla_de_comparacao = [0]
+        tupla_de_comparacao[0] = allcod['codigo']
+        tupla_de_comparacao = tuple(tupla_de_comparacao)
+
+        # CASO TENHA O CODIGO DAS CAPITAIS VAI SALVAR A INFORMACAO NO BANCO
+        if tupla_de_comparacao in res:
+
+            # TRATAMENTO DOS CARACTERES ESPECIAIS
             if allcod['tempo_desc'] == 'PredomÃ\xadnio de Sol':
                 allcod['tempo_desc'] = 'Predominio de Sol'
+
             elif allcod['tempo_desc'] == 'Chuvas periÃ³dicas':
                 allcod['tempo_desc'] = 'Chuvas periodicas'
-            # print(allcod)
+            
+            
+            # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
             insirirBD = InsertValores(allcod)
 
 
@@ -85,7 +135,7 @@ def SelectBD():
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-# valoresSuldeste()
+# Dados_Capitais()
 # SelectBD()
 
 # Conexao_BD.vcon.close()

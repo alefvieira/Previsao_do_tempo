@@ -4,7 +4,7 @@ from sqlite3 import Error
 def ConexaoBanco():
     con=None
     try:
-        con=sqlite3.connect("previsao_tempo.db")
+        con=sqlite3.connect("previsao_tempo9.db")
         cursor = con.cursor()
 
     except Error as ex:
