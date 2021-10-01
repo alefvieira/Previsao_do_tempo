@@ -2,10 +2,6 @@ import Conexao_BD as cBD
 import APP_Previsao_Tempo as AppPT
 # ********************************
 
-
-
-
-
 pagina=open("index.html","w", encoding="UTF-8")
 pagina.write(f"""<!DOCTYPE html>
 <html lang="pt-BR">
