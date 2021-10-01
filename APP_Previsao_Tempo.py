@@ -139,7 +139,7 @@ def SelectBD():
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-Dados_Capitais()
+# Dados_Capitais()
 # SelectBD()
 
 # Conexao_BD.vcon.close()

@@ -32,13 +32,9 @@ pagina.write(f"""
             </div><div>
                 <input type="radio" name="regiao" id="sul" value="Sul"  onclick="Select_Page()"><label class="anima" for="sul">Sul</label> 
             </div>
-
         </form>""")
 
-
 pagina.write("""<div class="container"><h2 class="regiao_capitais"></h2></div>""")
-
-
 
 def gera_section(cod_selec):
     sql = f"SELECT codigo from capitais where regiao ='{cod_selec}'"
