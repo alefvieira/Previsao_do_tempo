@@ -19,6 +19,7 @@ pagina.write(f"""<!DOCTYPE html>
     
     <main class="container">""")
 
+
 pagina.write(f"""
         <form class="regiao_Pesq">
             <div >
@@ -66,6 +67,7 @@ def gera_section(cod_selec):
     pagina.write("""
     </section>""")
 
+# CHAMADA DAS FUNÇÕES PARA CRIAR AS SEÇÕES COM AS INFORMAÇÕES DAS CAPITAIS
 gera_section("Sudeste")
 gera_section("Sul")
 gera_section("Centro-Oeste")
