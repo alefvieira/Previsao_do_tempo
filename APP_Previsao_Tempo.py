@@ -85,10 +85,14 @@ def InsertCapitais():
 
 def InsertValores(allcod):
 
-    sql = "INSERT INTO valores (codigo, atualizacao, tempo, pressao, temperatura, tempo_desc, umidade, vento_dir, vento_int, intensidade) VALUES ('"+allcod['codigo']+"','"+allcod['atualizacao']+"','"+allcod['tempo']+"','"+allcod['pressao']+"', '"+allcod['temperatura']+"','"+allcod['tempo_desc']+"', '"+allcod['umidade']+"','"+allcod['vento_dir']+"','"+allcod['vento_int']+"','"+allcod['intensidade']+"')"
+    sql = "INSERT or REPLACE INTO valores (codigo, atualizacao, tempo, pressao, temperatura, tempo_desc, umidade, vento_dir, vento_int, intensidade) VALUES ('"+allcod['codigo']+"','"+allcod['atualizacao']+"','"+allcod['tempo']+"','"+allcod['pressao']+"', '"+allcod['temperatura']+"','"+allcod['tempo_desc']+"', '"+allcod['umidade']+"','"+allcod['vento_dir']+"','"+allcod['vento_int']+"','"+allcod['intensidade']+"')"
     query(Conexao_BD.vcon, sql)
     return True
 
+def AtualizarDados(allcod):
+    sql = "UPDATE valores SET codigo = '"+allcod['codigo']+"',atualizacao = '"+allcod['atualizacao']+"', tempo = '"+allcod['tempo']+"',pressao = '"+allcod['pressao']+"', temperatura = '"+allcod['temperatura']+"',tempo_desc = '"+allcod['tempo_desc']+"', umidade = '"+allcod['umidade']+"',vento_dir = '"+allcod['vento_dir']+"', vento_int = '"+allcod['vento_int']+"',intensidade = '"+allcod['intensidade']+"'"
+    query(Conexao_BD.vcon, sql)
+    return True
 
 def Dados_Capitais():
      # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
@@ -101,16 +105,15 @@ def Dados_Capitais():
         
         # VAI PEGAR TODOS OS VALORES DENTRO DAS TAG DO XML
         allcod = data['capitais']['metar'][i]
-
+        
         # PEGANDO OS VALORES DA XML E COMPARANDO SE EXISTE A SUA CAPITAL REGISTRADA NO BD
         # CONVERTENDO O VALOR DA TAG XML E PASSANDO PARA TUPLE PARA COMPRAR COM O VALOR NO BANCO DE DADOS
         tupla_de_comparacao = [0]
         tupla_de_comparacao[0] = allcod['codigo']
         tupla_de_comparacao = tuple(tupla_de_comparacao)
-
+        
         # CASO TENHA O CODIGO DAS CAPITAIS VAI SALVAR A INFORMACAO NO BANCO
         if tupla_de_comparacao in res:
-
             # TRATAMENTO DOS CARACTERES ESPECIAIS
             if allcod['tempo_desc'] == 'PredomÃ\xadnio de Sol':
                 allcod['tempo_desc'] = 'Predominio de Sol'
@@ -118,9 +121,10 @@ def Dados_Capitais():
             elif allcod['tempo_desc'] == 'Chuvas periÃ³dicas':
                 allcod['tempo_desc'] = 'Chuvas periodicas'
             
-            
             # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
             insirirBD = InsertValores(allcod)
+            # insirirBD = AtualizarDados(allcod)
+            
 
 
 def SelectBD():
@@ -135,7 +139,7 @@ def SelectBD():
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-# Dados_Capitais()
+Dados_Capitais()
 # SelectBD()
 
 # Conexao_BD.vcon.close()

@@ -7,7 +7,7 @@ import APP_Previsao_Tempo as AppPT
 
 
 pagina=open("index.html","w", encoding="UTF-8")
-pagina.write("""<!DOCTYPE html>
+pagina.write(f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@ pagina.write("""<!DOCTYPE html>
     <link rel="stylesheet" href="style.css">
     
 </head>
-<body>
+<body onload="{AppPT.Dados_Capitais()}">
     <header class="container" ><h1>Projeto página Previsão do Tempo</h1></header>
     
     <main class="container">""")
@@ -48,13 +48,12 @@ pagina.write("""<div class="container"><h2 class="regiao_capitais"></h2></div>""
 
 def gera_section(cod_selec):
     sql = f"SELECT codigo from capitais where regiao ='{cod_selec}'"
-    res = AppPT.consultar(cBD.vcon,sql)
+    res = AppPT.consultar(cBD.vcon, sql)
 
     pagina.write(f"""<section class="{cod_selec}">""")
 
     for i in res:
         ii = i[0]
-
         sql_v = f"SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.tempo, valores.pressao, valores.temperatura, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade FROM valores, capitais WHERE capitais.codigo = '{ii}' and capitais.regiao = '{cod_selec}'" 
         ret = AppPT.consultar(cBD.vcon,sql_v)
         # print(ret)
