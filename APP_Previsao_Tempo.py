@@ -116,10 +116,10 @@ def Dados_Capitais():
         if tupla_de_comparacao in res:
             # TRATAMENTO DOS CARACTERES ESPECIAIS
             if allcod['tempo_desc'] == 'PredomÃ\xadnio de Sol':
-                allcod['tempo_desc'] = 'Predominio de Sol'
+                allcod['tempo_desc'] = 'Predomínio de Sol'
 
             elif allcod['tempo_desc'] == 'Chuvas periÃ³dicas':
-                allcod['tempo_desc'] = 'Chuvas periodicas'
+                allcod['tempo_desc'] = 'Chuvas Periódicas'
             
             # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
             insirirBD = InsertValores(allcod)
@@ -139,7 +139,7 @@ def SelectBD():
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-Dados_Capitais()
+# Dados_Capitais()
 # SelectBD()
 
 # Conexao_BD.vcon.close()

@@ -22,8 +22,6 @@ pagina.write(f"""<!DOCTYPE html>
     <header class="container" ><h1>Projeto página Previsão do Tempo</h1></header>
     
     <main class="container">""")
-def teste(qual):
-    print("Muito loco")
 
 pagina.write(f"""
         <form class="regiao_Pesq">
