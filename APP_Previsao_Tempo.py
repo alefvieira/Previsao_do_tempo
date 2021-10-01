@@ -116,7 +116,7 @@ def Dados_Capitais():
         if tupla_de_comparacao in res:
             # TRATAMENTO DOS CARACTERES ESPECIAIS
             if allcod['tempo_desc'] == 'PredomÃ\xadnio de Sol':
-                allcod['tempo_desc'] = 'Predomínio de Sol'
+                allcod['tempo_desc'] = 'Sol Predominante'
 
             elif allcod['tempo_desc'] == 'Chuvas periÃ³dicas':
                 allcod['tempo_desc'] = 'Chuvas Periódicas'
