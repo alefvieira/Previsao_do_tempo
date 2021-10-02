@@ -17,7 +17,7 @@ pagina.write(f"""<!DOCTYPE html>
 <body>
     <header class="container" >
         <h1><a href="index.html"> Projeto página Previsão do Tempo</a></h1>
-        <div><h1><a href="secao_graficos.html">Acessar Gráficos</a></h1></div>
+        <div><h1><a href="secao_graficos.html" >Acessar Gráficos</a></h1></div>
     </header>
     
     <main class="container">""")
