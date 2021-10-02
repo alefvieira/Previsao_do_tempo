@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
 import xmltodict
+from sqlite3 import Error
+import matplotlib.pyplot as plt
+import seaborn as sns
 from urllib.request import urlopen
 import Conexao_BD
-from sqlite3 import Error
 
 
 file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
@@ -138,11 +140,44 @@ def SelectBD():
     res = consultar(Conexao_BD.vcon,sql)
     print(res)
 
+# ESSA FUNÇÃO VAI ENVIAR O PARAMETRO DA REGIAO DO SQL
+def Regioes():
+    retorno = query_cria_grafico('Nordeste')
+    retorno = query_cria_grafico('Norte')
+    retorno = query_cria_grafico('Centro-Oeste')
+    retorno = query_cria_grafico('Sul')
+    retorno = query_cria_grafico('Sudeste')
+
+
+# ESSA FUNÇÃO VAI CRIAR TODOS OS GRAFICOS
+def query_cria_grafico(regiao):
+
+    sql = f"SELECT  capitais.capital, valores.temperatura, valores.umidade FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{regiao}'"
+    res = consultar(Conexao_BD.vcon, sql)
+
+    lista = []
+
+    for num, i in enumerate(res):
+        # print(f"{num}   {i}")
+        ii = list(i)
+        ii[1] = int(ii[1])
+        ii[2] = int(ii[2])
+        lista.append(ii)
+
+    # print(lista)
+    colunas = pd.DataFrame(lista, columns=['capital', 'temperatura', 'umidade']) # ESSE METODO COLOCA NOMES NAS COLUNAS
+    plot = sns.barplot(data=colunas, x='capital', y='temperatura')
+    plot.get_figure().savefig(f"graficos/temperatura_{regiao}.png")
+    plt.close()
+    return True
+
+
+
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
 # Dados_Capitais()
 # SelectBD()
-
+Regioes()
 # Conexao_BD.vcon.close()
 

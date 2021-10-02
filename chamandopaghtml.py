@@ -15,7 +15,10 @@ pagina.write(f"""<!DOCTYPE html>
     
 </head>
 <body>
-    <header class="container" ><h1>Projeto página Previsão do Tempo</h1></header>
+    <header class="container" >
+        <h1><a href="index.html"> Projeto página Previsão do Tempo</a></h1>
+        <div><h1><a href="secao_graficos.html" target="_blank">Acessar Gráficos</a></h1></div>
+    </header>
     
     <main class="container">""")
 
@@ -43,24 +46,23 @@ def gera_section(cod_selec):
 
     pagina.write(f"""<section class="{cod_selec}">""")
 
-    for i in res:
-        ii = i[0]
-        sql_v = f"SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.pressao, valores.temperatura, valores.tempo, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade FROM valores, capitais WHERE capitais.codigo = '{ii}' and capitais.regiao = '{cod_selec}'" 
-        ret = AppPT.consultar(cBD.vcon,sql_v)
-        print(ret)
+    sql_v = f"SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.pressao, valores.temperatura, valores.tempo, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade FROM valores, capitais WHERE capitais.codigo = valores.codigo and capitais.regiao = '{cod_selec}'" 
+    ret = AppPT.consultar(cBD.vcon,sql_v)
+
+    for num,i in enumerate(ret):
         pagina.write(f"""
             <div class="posicao_div">
-                <h2>Capital: {ret[0][0]}</h2>
-                <h3>Código: {ret[0][1]}</h3>
-                <p>Atualização: {ret[0][2]}</p>
-                <p>Pressão: {ret[0][3]}</p>
-                <p>Temperatura: {ret[0][4]}</p>
-                <p>Tempo: {ret[0][5]}</p>
-                <p>Descrição do Tempo: {ret[0][6]}</p>
-                <p>umidade: {ret[0][7]}</p>
-                <p>vento_dir: {ret[0][8]}</p>
-                <p>vento_int: {ret[0][9]}</p>
-                <p class="last_p">Intensidade: {ret[0][10]}</p>
+                <h2>Capital: {ret[num][0]}</h2>
+                <h3>Código: {ret[num][1]}</h3>
+                <p>Atualização: {ret[num][2]}</p>
+                <p>Pressão: {ret[num][3]}</p>
+                <p>Temperatura: {ret[num][4]}</p>
+                <p>Tempo: {ret[num][5]}</p>
+                <p>Descrição do Tempo: {ret[num][6]}</p>
+                <p>umidade: {ret[num][7]}</p>
+                <p>vento_dir: {ret[num][8]}</p>
+                <p>vento_int: {ret[num][9]}</p>
+                <p class="last_p">Intensidade: {ret[num][10]}</p>
             </div>
         """)
     # FORA DO FOR
