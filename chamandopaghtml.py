@@ -14,7 +14,7 @@ pagina.write(f"""<!DOCTYPE html>
     <link rel="stylesheet" href="style.css">
     
 </head>
-<body onload="{AppPT.Dados_Capitais()}">
+<body>
     <header class="container" ><h1>Projeto página Previsão do Tempo</h1></header>
     
     <main class="container">""")
@@ -45,9 +45,9 @@ def gera_section(cod_selec):
 
     for i in res:
         ii = i[0]
-        sql_v = f"SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.tempo, valores.pressao, valores.temperatura, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade FROM valores, capitais WHERE capitais.codigo = '{ii}' and capitais.regiao = '{cod_selec}'" 
+        sql_v = f"SELECT capitais.capital, valores.codigo, valores.atualizacao, valores.pressao, valores.temperatura, valores.tempo, valores.tempo_desc, valores.umidade, valores.vento_dir, valores.vento_int, valores.intensidade FROM valores, capitais WHERE capitais.codigo = '{ii}' and capitais.regiao = '{cod_selec}'" 
         ret = AppPT.consultar(cBD.vcon,sql_v)
-        # print(ret)
+        print(ret)
         pagina.write(f"""
             <div class="posicao_div">
                 <h2>Capital: {ret[0][0]}</h2>

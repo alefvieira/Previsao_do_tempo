@@ -10,8 +10,12 @@ file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
 data = file.read()
 file.close()
 data = xmltodict.parse(data)
+
 # data['capitais']['metar'][0].keys()
 # tabela = pd.DataFrame(data['capitais']['metar'])
+# A propriedade loc seleciona apenas a linha, dentro desse
+# m = tabela.loc[tabela['vento_int']=='11']
+
 
 # comandos de delete, update e insert 
 def query(conexao,sql):
@@ -85,12 +89,12 @@ def InsertCapitais():
 
 def InsertValores(allcod):
 
-    sql = "INSERT or REPLACE INTO valores (codigo, atualizacao, tempo, pressao, temperatura, tempo_desc, umidade, vento_dir, vento_int, intensidade) VALUES ('"+allcod['codigo']+"','"+allcod['atualizacao']+"','"+allcod['tempo']+"','"+allcod['pressao']+"', '"+allcod['temperatura']+"','"+allcod['tempo_desc']+"', '"+allcod['umidade']+"','"+allcod['vento_dir']+"','"+allcod['vento_int']+"','"+allcod['intensidade']+"')"
+    sql = "INSERT or REPLACE INTO valores (codigo, atualizacao, pressao, temperatura, tempo, tempo_desc, umidade, vento_dir, vento_int, intensidade) VALUES ('"+allcod['codigo']+"','"+allcod['atualizacao']+"','"+allcod['pressao']+"','"+allcod['temperatura']+"','"+allcod['tempo']+"','"+allcod['tempo_desc']+"', '"+allcod['umidade']+"','"+allcod['vento_dir']+"','"+allcod['vento_int']+"','"+allcod['intensidade']+"')"
     query(Conexao_BD.vcon, sql)
     return True
 
 def AtualizarDados(allcod):
-    sql = "UPDATE valores SET codigo = '"+allcod['codigo']+"',atualizacao = '"+allcod['atualizacao']+"', tempo = '"+allcod['tempo']+"',pressao = '"+allcod['pressao']+"', temperatura = '"+allcod['temperatura']+"',tempo_desc = '"+allcod['tempo_desc']+"', umidade = '"+allcod['umidade']+"',vento_dir = '"+allcod['vento_dir']+"', vento_int = '"+allcod['vento_int']+"',intensidade = '"+allcod['intensidade']+"'"
+    sql = "UPDATE valores SET codigo = '"+allcod['codigo']+"',atualizacao = '"+allcod['atualizacao']+"', pressao = '"+allcod['pressao']+"', temperatura = '"+allcod['temperatura']+"', tempo = '"+allcod['tempo']+"',  tempo_desc = '"+allcod['tempo_desc']+"', umidade = '"+allcod['umidade']+"',vento_dir = '"+allcod['vento_dir']+"', vento_int = '"+allcod['vento_int']+"',intensidade = '"+allcod['intensidade']+"'"
     query(Conexao_BD.vcon, sql)
     return True
 
@@ -105,7 +109,6 @@ def Dados_Capitais():
         
         # VAI PEGAR TODOS OS VALORES DENTRO DAS TAG DO XML
         allcod = data['capitais']['metar'][i]
-        
         # PEGANDO OS VALORES DA XML E COMPARANDO SE EXISTE A SUA CAPITAL REGISTRADA NO BD
         # CONVERTENDO O VALOR DA TAG XML E PASSANDO PARA TUPLE PARA COMPRAR COM O VALOR NO BANCO DE DADOS
         tupla_de_comparacao = [0]
@@ -126,7 +129,6 @@ def Dados_Capitais():
             # insirirBD = AtualizarDados(allcod)
             
 
-
 def SelectBD():
 
     sql = "select * from capitais"
@@ -139,7 +141,7 @@ def SelectBD():
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-Dados_Capitais()
+# Dados_Capitais()
 # SelectBD()
 
 # Conexao_BD.vcon.close()
