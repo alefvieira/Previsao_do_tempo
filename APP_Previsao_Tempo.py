@@ -170,7 +170,7 @@ def query_cria_grafico(regiao):
     return True
 
 
-
+print("TEste")
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
