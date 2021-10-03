@@ -8,10 +8,6 @@ from urllib.request import urlopen
 import Conexao_BD
 
 
-file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
-data = file.read()
-file.close()
-data = xmltodict.parse(data)
 
 # data['capitais']['metar'][0].keys()
 # tabela = pd.DataFrame(data['capitais']['metar'])
@@ -101,6 +97,12 @@ def AtualizarDados(allcod):
     return True
 
 def Dados_Capitais():
+    # VAI PEGAR TODAS AS INFORMAÇÕES DA XML
+    file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
+    data = file.read()
+    file.close()
+    data = xmltodict.parse(data)
+
      # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
     sql_s = "SELECT codigo FROM capitais"
     res = consultar(Conexao_BD.vcon,sql_s)
@@ -128,6 +130,7 @@ def Dados_Capitais():
             
             # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
             insirirBD = InsertValores(allcod)
+            # Regioes()
             # insirirBD = AtualizarDados(allcod)
             
 
@@ -178,6 +181,6 @@ def query_cria_grafico(regiao):
 # InsertCapitais()
 # Dados_Capitais()
 # SelectBD()
-Regioes()
+# Regioes()
 # Conexao_BD.vcon.close()
 
