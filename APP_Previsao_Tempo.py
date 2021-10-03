@@ -5,6 +5,7 @@ from sqlite3 import Error
 import matplotlib.pyplot as plt
 import seaborn as sns
 from urllib.request import urlopen
+
 import Conexao_BD
 
 
@@ -170,12 +171,13 @@ def query_cria_grafico(regiao):
     return True
 
 
-print("TEste")
+
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-# Dados_Capitais()
-# SelectBD()
-# Regioes()
-# Conexao_BD.vcon.close()
+Dados_Capitais()
+SelectBD()
+Regioes()
+
+Conexao_BD.vcon.close()
 
