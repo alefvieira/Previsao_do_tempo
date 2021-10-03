@@ -10,7 +10,7 @@ def do_something(sc):
     AppPT.Dados_Capitais()
     AppPT.Regioes()
     run_pag.Gera_Index()
-    s.enter(60, 1, do_something, (sc,))
+    s.enter(300, 1, do_something, (sc,))
 
-s.enter(60, 1, do_something, (s,))
+s.enter(300, 1, do_something, (s,))
 s.run()
