@@ -6,7 +6,7 @@ import sched, time
 s = sched.scheduler(time.time, time.sleep)
 
 def do_something(sc): 
-    print("Doing stuff...")
+    print("Dados Atualizados")
     AppPT.Dados_Capitais()
     AppPT.Regioes()
     run_pag.Gera_Index()

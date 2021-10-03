@@ -26,11 +26,6 @@ def query(conexao,sql):
     # finally:
     #     print("Operação Realizada com sucesso")
 
-cidades = {
-    'SBRJ':'Rio de Janeiro',
-    'SBSP':'São Paulo',
-    'SBVT':'Vitória',
-    'SBCF':'Belo Horizonte'}
 
 # função de consulta(select)
 def consultar(conexao,sql):
