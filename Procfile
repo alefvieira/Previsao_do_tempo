@@ -1,1 +1,1 @@
-web: python teste_teporizador.py
+web: python index.html
