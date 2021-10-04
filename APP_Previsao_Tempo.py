@@ -58,7 +58,6 @@ def Criartabela():
     query(Conexao_BD.vcon, sql)
 
 def InsertCapitais():
-    # sql = "INSERT INTO capitais(codigo, nome) VALUES ('SBRJ', 'Rio de Janeiro'), ('SBSP', 'São Paulo'),('SBVT', 'Vitória'), ('SBCF', 'Belo Horizonte')"
     sql = """INSERT INTO capitais(codigo, capital, uf, regiao) VALUES 
     ('SBAR',	'Aracaju'		,'SE','Nordeste'),
     ('SBBE',	'Belém'			,'PA','Norte'),
