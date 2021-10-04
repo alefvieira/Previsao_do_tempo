@@ -15,6 +15,7 @@ import APP_Previsao_Tempo as AppPT
 # s.enter(300, 1, do_something, (s,))
 # s.run()
 
-AppPT.Dados_Capitais()
-AppPT.Regioes()
-run_pag.Gera_Index()
+def app():
+    AppPT.Dados_Capitais()
+    AppPT.Regioes()
+    run_pag.Gera_Index()
