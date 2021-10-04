@@ -93,13 +93,3 @@ def Gera_Index():
         """)
 
     pagina.close()
-
-# def Atualiza_pag():
-#     Gera_Index()
-#     print("Gera_Index()")
-#     AppPT.Regioes()
-#     print("AppPT.Regioes()")
-#     AppPT.Dados_Capitais()
-#     print("Deu certo !!")
-
-# Atualiza_pag()

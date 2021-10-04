@@ -9,7 +9,6 @@ from urllib.request import urlopen
 import Conexao_BD
 
 
-
 # data['capitais']['metar'][0].keys()
 # tabela = pd.DataFrame(data['capitais']['metar'])
 # A propriedade loc seleciona apenas a linha, dentro desse
