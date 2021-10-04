@@ -175,7 +175,7 @@ def query_cria_grafico(regiao):
 # Criartabela()
 # InsertCapitais()
 Dados_Capitais()
-SelectBD()
+# SelectBD()
 Regioes()
 
 Conexao_BD.vcon.close()
