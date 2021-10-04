@@ -1,1 +1,2 @@
-web: python chamandopaghtml.py run
+web: python chamandopaghtml.py
+web: html index.html
