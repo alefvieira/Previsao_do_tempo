@@ -1,1 +1,1 @@
-web: gunicorn teste_teporizador:app
+web: gunicorn app:app

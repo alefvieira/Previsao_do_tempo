@@ -1,10 +1,11 @@
 import Conexao_BD as cBD
 import APP_Previsao_Tempo as AppPT
+from flask import Flask, render_template
 # ********************************
 
 def Gera_Index():
-    # AppPT.Dados_Capitais()
-    pagina=open("index.html","w", encoding="UTF-8")
+
+    pagina=open("templates/index.html", "w", encoding="UTF-8")
     pagina.write(f"""<!DOCTYPE html>
     <html lang="pt-BR">
     <head>
@@ -13,19 +14,20 @@ def Gera_Index():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Previsão do Tempo</title>
 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../static/css/style.css">
         
     </head>
     <body>
         <header class="container" >
-            <h1><a href="index.html"> Projeto página Previsão do Tempo</a></h1>
-            <div><h1><a href="secao_graficos.html" >Acessar Gráficos</a></h1></div>
+            <h1><a href="/"> Projeto página Previsão do Tempo</a></h1>
+            <div><h1><a href="graficos" >Acessar Gráficos</a></h1></div>
         </header>
         
         <main class="container">""")
 
 
     pagina.write(f"""
+       
             <form class="regiao_Pesq">
                 <div >
                     <input type="radio" name="regiao" onclick="Select_Page()" id="norte" value="Norte"> <label class="anima" for="norte">Norte</label> 
@@ -85,7 +87,7 @@ def Gera_Index():
             <p>Desenvolvido por Álef Vieira Coutinho e Kennedy Oliveira</p>
         </footer>
 
-        <script type="text/javascript" src="javascript.js">
+        <script type="text/javascript" src="../static/javascript.js">
         </script>
         
     </body>

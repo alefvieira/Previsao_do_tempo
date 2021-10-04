@@ -139,16 +139,30 @@ section.Sul, section.Sudeste, section.Norte, section.Nordeste, section.Centro-Oe
     padding-left: 5px;
 }
 /* PAGINA DOIS */
-section>div>h1{
-    padding-top: 20px;
+
+.posicao-div-img h1{
     font-size: 30px;
     text-align: center;
+    margin-bottom: 20px;
 }
-.posicao-img{
+section div.posicao-div-img:nth-last-of-type(){
+    margin-bottom: 250px ;
+}
+section div img.posicao-img{
+
     text-align: center;
     margin: 0 auto;
 
 }
+.posicao-div-img {
+
+    text-align: center;
+    margin: 30px auto;
+}
+.posicao-div-img img[alt="Gráfico de temperatura Sul"]{
+    margin-bottom: 150px ;
+}
+
 h1 a{
     text-decoration: none;
     color: white;
