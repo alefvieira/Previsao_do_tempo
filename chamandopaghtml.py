@@ -84,7 +84,7 @@ def Gera_Index():
         <p></p>
         <footer class="container">
             <p>Desenvolvido por Álef Vieira Coutinho</p>
-            <p>Kennedy Oliveira</p>
+            <p>e Kennedy Oliveira</p>
         </footer>
 
         <script type="text/javascript" src="../static/javascript.js">
