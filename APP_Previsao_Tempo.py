@@ -178,5 +178,5 @@ Dados_Capitais()
 # SelectBD()
 Regioes()
 
-Conexao_BD.vcon.close()
+# Conexao_BD.vcon.close()
 
