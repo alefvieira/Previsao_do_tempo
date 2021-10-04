@@ -105,12 +105,13 @@ def Regioes():
     retorno = query_cria_grafico('Centro-Oeste')
     retorno = query_cria_grafico('Sul')
     retorno = query_cria_grafico('Sudeste')
+    return True
 
 
 # ESSA FUNÇÃO VAI CRIAR TODOS OS GRAFICOS
 def query_cria_grafico(regiao):
 
-    sql = f"SELECT  capitais.capital, valores.temperatura, valores.umidade FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{regiao}'"
+    sql = f"SELECT  capitais.capital, valores.temperatura FROM valores, capitais WHERE valores.codigo = capitais.codigo  and capitais.regiao = '{regiao}'"
     res = consultar(Conexao_BD.vcon, sql)
 
     lista = []
@@ -123,7 +124,7 @@ def query_cria_grafico(regiao):
         lista.append(ii)
 
     # print(lista)
-    colunas = pd.DataFrame(lista, columns=['capital', 'temperatura', 'umidade']) # ESSE METODO COLOCA NOMES NAS COLUNAS
+    colunas = pd.DataFrame(lista, columns=['capital', 'temperatura']) # ESSE METODO COLOCA NOMES NAS COLUNAS
     plot = sns.barplot(data=colunas, x='capital', y='temperatura')
     plot.get_figure().savefig(f"static/graficos/temperatura_{regiao}.png")
     plt.close()
@@ -147,7 +148,7 @@ def Dados_Capitais():
     # ESSE IF  VAI IMPEDIR DO CODIGO ATUALIZAR
     if allcod[0]['atualizacao'] != res_valores[0][0]:
         
-        Regioes() # VAI GERAR OS GRÁFICOS
+        retorno_reg = Regioes() # VAI GERAR OS GRÁFICOS
 
         # FAZ A CONTAGEM DE METAS PARA CRIAR O LOOP DE REPETICAO
         for i in range(0,len(data['capitais']['metar'])):
