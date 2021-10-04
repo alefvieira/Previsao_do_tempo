@@ -18,7 +18,8 @@ def graficos():
     AppPT.Regioes()
     return render_template('secao_graficos.html')
 
-app.run(host='0.0.0.0', port=5000)
+
+app.run(debug=True)
 
 
 
