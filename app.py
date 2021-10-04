@@ -1,45 +1,25 @@
-from flask import Flask, render_template
-import chamandopaghtml as run_pag
-import APP_Previsao_Tempo as AppPT
+# from flask import Flask, render_template
+# import chamandopaghtml as run_pag
+# import APP_Previsao_Tempo as AppPT
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
+# @app.route("/")
 
-
-@app.route("/")
-
-def index():
-    AppPT.Dados_Capitais()
-    run_pag.Gera_Index()
-    return render_template('index.html')
-
-@app.route('/graficos')
-def graficos():
-    AppPT.Regioes()
-    return render_template('secao_graficos.html')
-
-
-if __name__ == "__main__":
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
-
-
-
-# import sched, time
-# s = sched.scheduler(time.time, time.sleep)
-
-# def do_something(sc): 
-#     print("Dados Atualizados")
+# def index():
 #     AppPT.Dados_Capitais()
-#     AppPT.Regioes()
-#     run_pag.Gera_Index()
-#     s.enter(300, 1, do_something, (sc,))
+#     Gera_Index() # VAI GERAR A PÁGINA HTML
+#     return render_template('index.html')
 
-# s.enter(300, 1, do_something, (s,))
-# s.run()
+# @app.route('/graficos')
+# def graficos():
+    
+#     return render_template('secao_graficos.html')
 
-# def app():
-#     AppPT.Dados_Capitais()
-#     AppPT.Regioes()
-#     run_pag.Gera_Index()
+
+# # if __name__ == "__main__":
+# #     from waitress import serve
+# #     serve(app, host="0.0.0.0", port=8080)
+
+# app.run()
 

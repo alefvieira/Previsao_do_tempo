@@ -57,7 +57,7 @@ def Gera_Index():
                 <div class="posicao_div">
                     <h2>Capital: {ret[num][0]}</h2>
                     <h3>Código: {ret[num][1]}</h3>
-                    <p>Atualização: {ret[num][2]}</p>
+                    <p class="att">Atualização: {ret[num][2]}</p>
                     <p>Pressão: {ret[num][3]}</p>
                     <p>Temperatura: {ret[num][4]}</p>
                     <p>Tempo: {ret[num][5]}</p>

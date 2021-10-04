@@ -52,3 +52,10 @@ function ocu_visu_reg(valor){
 
 }
 
+function atualizacao(){
+
+    var p_atu=  document.getElementsByClassName("att").value
+    
+    
+}
+

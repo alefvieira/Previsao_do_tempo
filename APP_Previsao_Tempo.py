@@ -14,6 +14,14 @@ import Conexao_BD
 # A propriedade loc seleciona apenas a linha, dentro desse
 # m = tabela.loc[tabela['vento_int']=='11']
 
+def ChamaXML():
+    # VAI PEGAR TODAS AS INFORMAÇÕES DA XML
+    file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
+    data = file.read()
+    file.close()
+    data = xmltodict.parse(data)
+    return data 
+
 
 # comandos de delete, update e insert 
 def query(conexao,sql):
@@ -21,6 +29,7 @@ def query(conexao,sql):
         c=conexao.cursor()
         c.execute(sql)
         conexao.commit()
+        print("Ação realizada com sucesso !")
     except Error as ex:
         print(ex)
     # finally:
@@ -86,59 +95,11 @@ def InsertValores(allcod):
     query(Conexao_BD.vcon, sql)
     return True
 
-def AtualizarDados(allcod):
-    sql = "UPDATE valores SET codigo = '"+allcod['codigo']+"',atualizacao = '"+allcod['atualizacao']+"', pressao = '"+allcod['pressao']+"', temperatura = '"+allcod['temperatura']+"', tempo = '"+allcod['tempo']+"',  tempo_desc = '"+allcod['tempo_desc']+"', umidade = '"+allcod['umidade']+"',vento_dir = '"+allcod['vento_dir']+"', vento_int = '"+allcod['vento_int']+"',intensidade = '"+allcod['intensidade']+"'"
-    query(Conexao_BD.vcon, sql)
-    return True
+def cod_atuali(res):
+    sql_valores = f"SELECT atualizacao FROM valores WHERE codigo = '{res[0][0]}'"
+    res_valores = consultar(Conexao_BD.vcon,sql_valores)  
+    return res_valores
 
-def Dados_Capitais():
-    # VAI PEGAR TODAS AS INFORMAÇÕES DA XML
-    file = urlopen('http://servicos.cptec.inpe.br/XML/capitais/condicoesAtuais.xml')
-    data = file.read()
-    file.close()
-    data = xmltodict.parse(data)
-
-     # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
-    sql_s = "SELECT codigo FROM capitais"
-    res = consultar(Conexao_BD.vcon,sql_s)
-
-
-    # FAZ A CONTAGEM DE METAS PARA CRIAR O LOOP DE REPETICAO
-    for i in range(0,len(data['capitais']['metar'])):
-        
-        # VAI PEGAR TODOS OS VALORES DENTRO DAS TAG DO XML
-        allcod = data['capitais']['metar'][i]
-        # PEGANDO OS VALORES DA XML E COMPARANDO SE EXISTE A SUA CAPITAL REGISTRADA NO BD
-        # CONVERTENDO O VALOR DA TAG XML E PASSANDO PARA TUPLE PARA COMPRAR COM O VALOR NO BANCO DE DADOS
-        tupla_de_comparacao = [0]
-        tupla_de_comparacao[0] = allcod['codigo']
-        tupla_de_comparacao = tuple(tupla_de_comparacao)
-        
-        # CASO TENHA O CODIGO DAS CAPITAIS VAI SALVAR A INFORMACAO NO BANCO
-        if tupla_de_comparacao in res:
-            # TRATAMENTO DOS CARACTERES ESPECIAIS
-            if allcod['tempo_desc'] == 'PredomÃ\xadnio de Sol':
-                allcod['tempo_desc'] = 'Predomínio de Sol'
-
-            elif allcod['tempo_desc'] == 'Chuvas periÃ³dicas':
-                allcod['tempo_desc'] = 'Chuvas Periódicas'
-            
-            # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
-            insirirBD = InsertValores(allcod)
-            # Regioes()
-            # insirirBD = AtualizarDados(allcod)
-            
-
-def SelectBD():
-
-    sql = "select * from capitais"
-    res = consultar(Conexao_BD.vcon,sql)
-    print(res)
-    sql = "select * from valores"
-    res = consultar(Conexao_BD.vcon,sql)
-    print(res)
-
-# ESSA FUNÇÃO VAI ENVIAR O PARAMETRO DA REGIAO DO SQL
 def Regioes():
     retorno = query_cria_grafico('Nordeste')
     retorno = query_cria_grafico('Norte')
@@ -170,13 +131,66 @@ def query_cria_grafico(regiao):
     return True
 
 
+def Dados_Capitais():
+    # VAI PEGAR TODAS AS INFORMAÇÕES DA XML
+    data = ChamaXML()
+    allcod = data['capitais']['metar']
+
+
+    sql_s = "SELECT codigo FROM capitais"
+    res = consultar(Conexao_BD.vcon,sql_s)
+
+     # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
+    res_valores = cod_atuali(res)
+
+    print(f"{res_valores[0][0]}  :  {allcod[0]['atualizacao']}")
+    
+    # ESSE IF  VAI IMPEDIR DO CODIGO ATUALIZAR
+    if allcod[0]['atualizacao'] != res_valores[0][0]:
+        
+        Regioes() # VAI GERAR OS GRÁFICOS
+
+        # FAZ A CONTAGEM DE METAS PARA CRIAR O LOOP DE REPETICAO
+        for i in range(0,len(data['capitais']['metar'])):
+            
+            # PEGANDO OS VALORES DA XML E COMPARANDO SE EXISTE A SUA CAPITAL REGISTRADA NO BD
+            # CONVERTENDO O VALOR DA TAG XML E PASSANDO PARA TUPLE PARA COMPRAR COM O VALOR NO BANCO DE DADOS
+            tupla_de_comparacao = [0]
+            tupla_de_comparacao[0] = allcod[i]['codigo']
+            tupla_de_comparacao = tuple(tupla_de_comparacao)
+            
+            # CASO TENHA O CODIGO DAS CAPITAIS VAI SALVAR A INFORMACAO NO BANCO
+            if tupla_de_comparacao in res:
+                # TRATAMENTO DOS CARACTERES ESPECIAIS
+                if allcod[i]['tempo_desc'] == 'PredomÃ\xadnio de Sol':
+                    allcod[i]['tempo_desc'] = 'Predomínio de Sol'
+
+                elif allcod[i]['tempo_desc'] == 'Chuvas periÃ³dicas':
+                    allcod[i]['tempo_desc'] = 'Chuvas Periódicas'
+                
+                # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
+                insirirBD = InsertValores(allcod[i])
+                
+        
+
+
+def SelectBD():
+
+    sql = "select * from capitais"
+    res = consultar(Conexao_BD.vcon,sql)
+    print(res)
+    sql = "select * from valores"
+    res = consultar(Conexao_BD.vcon,sql)
+    print(res)
+
+# ESSA FUNÇÃO VAI ENVIAR O PARAMETRO DA REGIAO DO SQL
+
 
 # FUNÇÕES START
 # Criartabela()
 # InsertCapitais()
-# Dados_Capitais()
+Dados_Capitais()
 # SelectBD()
 # Regioes()
-
 # Conexao_BD.vcon.close()
 
