@@ -83,7 +83,8 @@ def Gera_Index():
     pagina.write("""</main>
         <p></p>
         <footer class="container">
-            <p>Desenvolvido por Álef Vieira Coutinho e Kennedy Oliveira</p>
+            <p>Desenvolvido por Álef Vieira Coutinho</p>
+            <p>Kennedy Oliveira</p>
         </footer>
 
         <script type="text/javascript" src="../static/javascript.js">
