@@ -165,7 +165,7 @@ def query_cria_grafico(regiao):
     # print(lista)
     colunas = pd.DataFrame(lista, columns=['capital', 'temperatura', 'umidade']) # ESSE METODO COLOCA NOMES NAS COLUNAS
     plot = sns.barplot(data=colunas, x='capital', y='temperatura')
-    plot.get_figure().savefig(f"templates/graficos/temperatura_{regiao}.png")
+    plot.get_figure().savefig(f"static/graficos/temperatura_{regiao}.png")
     plt.close()
     return True
 

@@ -4,20 +4,21 @@ import APP_Previsao_Tempo as AppPT
 
 app = Flask(__name__)
 
-AppPT.Dados_Capitais()
-run_pag.Gera_Index()
-AppPT.Regioes()
+
 
 @app.route("/")
 
 def index():
+    AppPT.Dados_Capitais()
+    run_pag.Gera_Index()
     return render_template('index.html')
 
 @app.route('/graficos')
 def graficos():
+    AppPT.Regioes()
     return render_template('secao_graficos.html')
 
-app.run(debug=True)
+app.run(host='0.0.0.0', port=5000)
 
 
 
