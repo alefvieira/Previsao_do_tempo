@@ -93,3 +93,5 @@ def Gera_Index():
         """)
 
     pagina.close()
+    
+Gera_Index()
