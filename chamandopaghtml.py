@@ -1,8 +1,7 @@
 import Conexao_BD as cBD
 import APP_Previsao_Tempo as AppPT
-from flask import Flask, render_template
-# ********************************
 
+# ********************************
 def Gera_Index():
 
     pagina=open("templates/index.html", "w", encoding="UTF-8")
