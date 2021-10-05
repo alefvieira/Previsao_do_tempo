@@ -9,7 +9,7 @@ app = Flask(__name__)
 def index():
     AppPT.Dados_Capitais()
 
-
+    run_pag.Gera_Index()
     return render_template('index.html')
 
 @app.route('/graficos')
