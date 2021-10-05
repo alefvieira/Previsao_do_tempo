@@ -120,7 +120,6 @@ def query_cria_grafico(regiao):
         # print(f"{num}   {i}")
         ii = list(i)
         ii[1] = int(ii[1])
-        ii[2] = int(ii[2])
         lista.append(ii)
 
     # print(lista)
@@ -140,8 +139,8 @@ def Dados_Capitais():
     sql_s = "SELECT codigo FROM capitais"
     res = consultar(Conexao_BD.vcon,sql_s)
 
-     # SELECT DE TODOS OS CODIGOS DAS CAPITAIS
-    res_valores = cod_atuali(res)
+    sql_valores = f"SELECT atualizacao FROM valores WHERE codigo = '{res[0][0]}'"
+    res_valores = consultar(Conexao_BD.vcon,sql_valores)  
 
     print(f"{res_valores[0][0]}  :  {allcod[0]['atualizacao']}")
     
