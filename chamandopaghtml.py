@@ -22,11 +22,7 @@ def Gera_Index():
             <div><h1><a href="graficos" >Acessar Gráficos</a></h1></div>
         </header>
         
-        <main class="container">""")
-
-
-    pagina.write(f"""
-       
+        <main class="container">       
             <form class="regiao_Pesq">
                 <div >
                     <input type="radio" name="regiao" onclick="Select_Page()" id="norte" value="Norte"> <label class="anima" for="norte">Norte</label> 
@@ -39,9 +35,8 @@ def Gera_Index():
                 </div><div>
                     <input type="radio" name="regiao" id="sul" value="Sul"  onclick="Select_Page()"><label class="anima" for="sul">Sul</label> 
                 </div>
-            </form>""")
-
-    pagina.write("""<div class="container"><h2 class="regiao_capitais"></h2></div>""")
+            </form>
+            <div class="container"><h2 class="regiao_capitais"></h2></div>""")
 
     def gera_section(cod_selec):
         sql = f"SELECT codigo from capitais where regiao ='{cod_selec}'"
