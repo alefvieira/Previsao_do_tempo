@@ -169,9 +169,6 @@ def Dados_Capitais():
                 
                 # FUNCAO COM RETORNO QUE SALVA OS DADOS NO BANCO DE DADOS
                 insirirBD = InsertValores(allcod[i])
-                
-        
-
 
 def SelectBD():
 
